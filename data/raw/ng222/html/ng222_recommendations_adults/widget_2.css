@@ -1,0 +1,50 @@
+html, body, a {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    display: inline-flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo {
+    width: calc(100% - 32px);
+    object-fit: contain;
+    vertical-align: bottom;
+}
+
+#padding-container {
+    position: relative;
+    margin: auto;
+    display: flex;
+    gap: 1px 1px;
+    align-items: flex-start;
+}
+
+.blockmark-tick, .bm-tooltip {
+    max-width: 30px;
+    max-height: 30px;
+}
+
+.bm-tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid white;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-family: Helvetica, Arial, sans-serif;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.bm-tooltip:hover .bm-tooltiptext {
+    visibility: visible;
+}

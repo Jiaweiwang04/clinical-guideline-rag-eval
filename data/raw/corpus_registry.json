@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "created_at": "2026-03-11",
+  "topic": "depression",
+  "corpora": [
+    {
+      "source_id": "NICE_NG222",
+      "label": "NICE NG222 (Adults) - Recommendations HTML + PDF snapshot",
+      "institution": "NICE",
+      "population": "adults",
+      "formats": ["html", "pdf"],
+      "primary_format": "html",
+      "citation_mode": {
+        "html": "anchor",
+        "pdf": "page"
+      },
+      "metadata_path": "data/raw/ng222/metadata.json",
+      "enabled": true,
+      "role": "primary"
+    },
+    {
+      "source_id": "NICE_NG134",
+      "label": "NICE NG134 (Children & Young People) - Recommendations HTML + PDF snapshot",
+      "institution": "NICE",
+      "population": "children_and_young_people",
+      "formats": ["html", "pdf"],
+      "primary_format": "html",
+      "citation_mode": {
+        "html": "anchor",
+        "pdf": "page"
+      },
+      "metadata_path": "data/raw/ng134/metadata.json",
+      "enabled": true,
+      "role": "secondary"
+    },
+    {
+      "source_id": "APA_DEP_GDL",
+      "label": "APA Depression Guideline (Adults) - PDF",
+      "institution": "APA",
+      "population": "adults",
+      "formats": ["pdf"],
+      "primary_format": "pdf",
+      "citation_mode": {
+        "pdf": "page"
+      },
+      "metadata_path": "data/raw/apa/metadata.json",
+      "enabled": true,
+      "role": "secondary"
+    }
+  ],
+  "experiment_sets": {
+    "E1_primary_only": ["NICE_NG222"],
+    "E2_nice_adults_vs_cyp": ["NICE_NG222", "NICE_NG134"],
+    "E3_cross_institution_adults": ["NICE_NG222", "APA_DEP_GDL"],
+    "E4_all": ["NICE_NG222", "NICE_NG134", "APA_DEP_GDL"]
+  }
+}

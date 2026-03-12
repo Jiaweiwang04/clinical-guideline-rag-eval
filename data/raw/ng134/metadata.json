@@ -1,0 +1,21 @@
+{
+  "source_id": "NICE_NG134",
+  "title": "Depression in children and young people: identification and management",
+  "type": "clinical_guideline",
+  "institution": "NICE",
+  "population": "children_and_young_people",
+  "format": ["html", "pdf"],
+  "citation_mode": { "html": "anchor", "pdf": "page" },
+  "topic": "depression",
+  "urls": {
+    "main": "https://www.nice.org.uk/guidance/ng134",
+    "recommendations": "https://www.nice.org.uk/guidance/ng134/chapter/recommendations",
+    "pdf": "https://www.nice.org.uk/guidance/ng134/resources/depression-in-children-and-young-people-identification-and-management-pdf-66141719350981"
+  },
+  "local_files": {
+    "recommendations_html": "data/raw/nice_ng134/html/ng134_recommendations_young.html",
+    "pdf": "data/raw/ng222/pdf/ng222_recommendations_young.pdf"
+  },
+  "retrieved_at": "2026-03-11",
+  "notes": "Use as secondary corpus for cross-population generalization and robustness experiments."
+}

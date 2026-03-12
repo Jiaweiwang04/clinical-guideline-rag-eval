@@ -1,0 +1,21 @@
+{
+  "source_id": "NICE_NG222",
+  "title": "Depression in adults: treatment and management",
+  "type": "clinical_guideline",
+  "institution": "NICE",
+  "population": "adults",
+  "format": ["html", "pdf"],
+  "citation_mode": { "html": "anchor", "pdf": "page" },
+  "topic": "depression",
+  "urls": {
+    "main": "https://www.nice.org.uk/guidance/ng222",
+    "recommendations": "https://www.nice.org.uk/guidance/ng222/chapter/recommendations",
+    "pdf": "https://www.nice.org.uk/guidance/ng222/resources/depression-in-adults-treatment-and-management-pdf-66143832307909"
+  },
+  "local_files": {
+    "recommendations_html": "data/raw/ng222/html/ng222_recommendations_adults.html",
+    "pdf": "data/raw/ng222/pdf/ng222_recommendations_adults.pdf"
+  },
+  "retrieved_at": "2026-03-11",
+  "notes": "Use recommendations HTML as primary corpus; evidence-grounded summarization only; no individualized medical advice."
+}

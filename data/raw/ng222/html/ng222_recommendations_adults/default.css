@@ -1,0 +1,65 @@
+.margin-bottom-0 { 
+	margin-bottom: 0;
+}
+
+.accordion {
+	margin-bottom: .5rem;
+	padding: .5rem 1rem;
+	border: 1pt solid #d6d6d6;
+}
+  
+
+.accordion-toggle {
+cursor: pointer;
+  }
+
+@media (min-width: 768px) {
+   .chapter-toggle-page .collapse-links {
+       height: auto!important;
+   }
+}
+
+.chapter-toggle-page .section-footer .pagination .previous {
+	margin-right:2px;
+}
+
+.full-bleed__image-container {
+    background-position: 50%;
+    background-size: cover;
+    bottom: 0;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40%;
+    z-index: 0;
+}
+
+.full-bleed__image-container:after {
+    content: "";
+    inset: 0;
+    opacity: .6;
+    position: absolute;
+    z-index: 0;
+}
+
+.full-bleed__image-container:before {
+    background: #228096;
+    content: "";
+    flex: 0 0 200px;
+    position: relative;
+    transform: rotate(-15deg) scale(1.2) translateX(-60%);
+    z-index: 1;
+
+}
+
+.image-container-dark:before {
+    background: #00436C;
+}
+
+.hj-job-list > h2:first-of-type {
+  display: none;
+}
+
+.hj-sorter {display: none;}
