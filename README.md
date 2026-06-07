@@ -80,6 +80,93 @@ data/eval/results/bm25_ng222_results.json
 data/eval/results/bm25_ng222_results.csv
 ```
 
+## Local Embedding Evaluation
+
+The first local embedding baseline uses:
+
+```text
+sentence-transformers/all-MiniLM-L6-v2
+```
+
+Build the local embedding index:
+
+```powershell
+conda run -n ml python scripts\build_embeddings_ng222.py
+```
+
+Run embedding search:
+
+```powershell
+conda run -n ml python scripts\search_embedding.py --query "What withdrawal symptoms can happen when stopping antidepressants?" --top-k 5
+```
+
+Run embedding evaluation:
+
+```powershell
+conda run -n ml python scripts\eval_embedding.py
+```
+
+Current local embedding results:
+
+```text
+Queries: 29
+Recall@1: 0.586
+Recall@3: 0.862
+Recall@5: 0.966
+MRR@5: 0.737
+```
+
+Result files:
+
+```text
+data/eval/results/embedding_ng222_results.json
+data/eval/results/embedding_ng222_results.csv
+```
+
+## Hybrid Evaluation
+
+The hybrid retriever combines BM25 and local embedding scores:
+
+```text
+hybrid_score = alpha * normalized_bm25_score + (1 - alpha) * normalized_embedding_score
+```
+
+Run hybrid search with the selected alpha:
+
+```powershell
+conda run -n ml python scripts\search_hybrid.py --alpha 0.4 --query "When should inpatient treatment be considered for more severe depression?" --top-k 5
+```
+
+Run the hybrid alpha sweep:
+
+```powershell
+conda run -n ml python scripts\eval_hybrid.py
+```
+
+Current selected alpha:
+
+```text
+alpha: 0.40
+```
+
+Current hybrid results:
+
+```text
+Queries: 29
+Recall@1: 0.759
+Recall@3: 1.000
+Recall@5: 1.000
+MRR@5: 0.874
+```
+
+Result files:
+
+```text
+data/eval/results/hybrid_ng222_results.json
+data/eval/results/hybrid_ng222_results.csv
+data/eval/results/hybrid_ng222_sweep.json
+```
+
 ## Main Findings
 
 BM25 is a strong first baseline for direct guideline questions when the query uses terms close to the guideline wording. It performs well on specific recommendation and table-row questions such as antidepressant review timing, psychotic depression treatment, CRHT, inpatient care, and table treatment details.
@@ -91,12 +178,34 @@ The current misses show the limits of plain lexical retrieval:
 
 These failures are useful test cases for the next embedding or hybrid retrieval stage.
 
+The local embedding baseline improves `Recall@5` and fixes the BM25 miss for withdrawal symptom listing, but it has weaker `Recall@1` and `MRR@5`. This suggests that embeddings are useful for semantic recall, while BM25 remains stronger for exact top-rank precision on this small corpus.
+
+The hybrid retriever is currently the best method. With `alpha=0.40`, it improves over both standalone BM25 and standalone local embeddings:
+
+| Method | Recall@1 | Recall@3 | Recall@5 | MRR@5 |
+| --- | ---: | ---: | ---: | ---: |
+| BM25 | 0.690 | 0.793 | 0.931 | 0.768 |
+| Local embedding | 0.586 | 0.862 | 0.966 | 0.737 |
+| Hybrid | 0.759 | 1.000 | 1.000 | 0.874 |
+
 ## Reports
 
 The current BM25 stage report is:
 
 ```text
 reports/bm25_eval_report.md
+```
+
+The current local embedding stage report is:
+
+```text
+reports/local_embedding_eval_report.md
+```
+
+The current hybrid stage report is:
+
+```text
+reports/hybrid_eval_report.md
 ```
 
 ## Safety Note

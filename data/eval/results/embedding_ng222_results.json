@@ -1,0 +1,610 @@
+{
+  "config": {
+    "index_dir": "data/index/ng222_local_embeddings",
+    "eval": "data/eval/ng222_bm25_eval_questions.jsonl",
+    "top_k": 5,
+    "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+    "num_chunks": 158,
+    "embedding_dim": 384,
+    "normalize_embeddings": true
+  },
+  "metrics": {
+    "num_queries": 29,
+    "top_k": 5,
+    "recall_ks": [
+      1,
+      3,
+      5
+    ],
+    "mrr_at_k": 0.7367816091954021,
+    "recall_at_1": 0.5862068965517241,
+    "recall_at_3": 0.8620689655172413,
+    "recall_at_5": 0.9655172413793104
+  },
+  "results": [
+    {
+      "query_id": "q001",
+      "query": "Which recommendation says to use Table 1 when discussing first-line treatments for less severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_5_2"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_5_2",
+        "NICE_NG222|ng222-1_6_1",
+        "NICE_NG222|ng222-1_5_3",
+        "NICE_NG222|ng222-1_4_2",
+        "NICE_NG222|ng222-1_10_4"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Directly targets the recommendation that points clinicians to Table 1 for less severe depression.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q002",
+      "query": "Which recommendation says to use Table 2 when discussing first-line treatments for more severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_6_1"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_5_2",
+        "NICE_NG222|ng222-1_6_1",
+        "NICE_NG222|ng222-1_4_2",
+        "NICE_NG222|ng222-1_5_3",
+        "NICE_NG222|table_2|3"
+      ],
+      "first_hit_rank": 2,
+      "reciprocal_rank": 0.5,
+      "notes": "Directly targets the recommendation that points clinicians to Table 2 for more severe depression.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q003",
+      "query": "Should antidepressant medication be routinely offered as first-line treatment for less severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_5_3"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_5_3",
+        "NICE_NG222|table_2|4",
+        "NICE_NG222|ng222-1_9_6",
+        "NICE_NG222|table_1|9",
+        "NICE_NG222|ng222-1_9_5"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets the recommendation not to routinely offer antidepressant medication first line for less severe depression.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q004",
+      "query": "How soon should antidepressant medication be reviewed after starting?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_11",
+        "NICE_NG222|table_1|9",
+        "NICE_NG222|table_2|4"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|table_1|9",
+        "NICE_NG222|table_2|4",
+        "NICE_NG222|ng222-1_4_11",
+        "NICE_NG222|ng222-1_4_22",
+        "NICE_NG222|ng222-1_8_11"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets the initial antidepressant medication review timing.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q005",
+      "query": "What extra review is needed for people aged 18 to 25 starting antidepressant medication?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_11",
+        "NICE_NG222|table_1|9",
+        "NICE_NG222|table_2|4"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_22",
+        "NICE_NG222|table_2|4",
+        "NICE_NG222|ng222-1_4_10",
+        "NICE_NG222|ng222-1_4_11",
+        "NICE_NG222|ng222-1_8_11"
+      ],
+      "first_hit_rank": 2,
+      "reciprocal_rank": 0.5,
+      "notes": "Targets the 1-week review after starting antidepressants in people aged 18 to 25.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q006",
+      "query": "What should people be advised to do if they want to stop antidepressant medication?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_12"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_10",
+        "NICE_NG222|ng222-1_8_4",
+        "NICE_NG222|ng222-1_4_12",
+        "NICE_NG222|ng222-1_9_5",
+        "NICE_NG222|ng222-1_8_11"
+      ],
+      "first_hit_rank": 3,
+      "reciprocal_rank": 0.3333333333333333,
+      "notes": "Targets advice to speak with the prescriber and reduce the dose in stages.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q007",
+      "query": "What withdrawal symptoms can happen when stopping antidepressants?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_13"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_13",
+        "NICE_NG222|ng222-1_4_20",
+        "NICE_NG222|ng222-1_4_19",
+        "NICE_NG222|ng222-1_4_14",
+        "NICE_NG222|ng222-1_4_15"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets the recommendation listing possible withdrawal symptoms.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q008",
+      "query": "How long can withdrawal symptoms last after reducing or stopping antidepressant medication?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_14"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_14",
+        "NICE_NG222|ng222-1_4_19",
+        "NICE_NG222|ng222-1_4_20",
+        "NICE_NG222|ng222-1_4_13",
+        "NICE_NG222|ng222-1_4_21"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets duration and possible severity of withdrawal symptoms.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q009",
+      "query": "How should antidepressant medication be tapered when stopping?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_16"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_12",
+        "NICE_NG222|ng222-1_4_16",
+        "NICE_NG222|ng222-1_8_11",
+        "NICE_NG222|ng222-1_8_4",
+        "NICE_NG222|ng222-1_4_21"
+      ],
+      "first_hit_rank": 2,
+      "reciprocal_rank": 0.5,
+      "notes": "Targets staged dose reduction and tapering considerations.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q010",
+      "query": "How should people be monitored while their antidepressant dose is being reduced?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_17"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_17",
+        "NICE_NG222|ng222-1_4_12",
+        "NICE_NG222|ng222-1_4_10",
+        "NICE_NG222|ng222-1_11_3",
+        "NICE_NG222|ng222-1_9_5"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets monitoring during antidepressant dose reduction.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q011",
+      "query": "Which antidepressants need particular care because withdrawal symptoms are more likely?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_18"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_20",
+        "NICE_NG222|ng222-1_4_13",
+        "NICE_NG222|ng222-1_4_15",
+        "NICE_NG222|ng222-1_4_18",
+        "NICE_NG222|ng222-1_4_21"
+      ],
+      "first_hit_rank": 4,
+      "reciprocal_rank": 0.25,
+      "notes": "Targets paroxetine and venlafaxine being more likely to be associated with withdrawal symptoms.",
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q012",
+      "query": "How should mild withdrawal symptoms after stopping antidepressants be managed?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_20"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_20",
+        "NICE_NG222|ng222-1_4_13",
+        "NICE_NG222|ng222-1_4_19",
+        "NICE_NG222|ng222-1_4_14",
+        "NICE_NG222|ng222-1_4_21"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets management of mild withdrawal symptoms.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q013",
+      "query": "What should be considered for more severe withdrawal symptoms after stopping antidepressants?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_4_21"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_4_13",
+        "NICE_NG222|ng222-1_4_20",
+        "NICE_NG222|ng222-1_4_19",
+        "NICE_NG222|ng222-1_4_21",
+        "NICE_NG222|ng222-1_4_14"
+      ],
+      "first_hit_rank": 4,
+      "reciprocal_rank": 0.25,
+      "notes": "Targets restarting the original antidepressant and reducing more slowly.",
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q014",
+      "query": "How often should antidepressant medication be reviewed when used to prevent relapse?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_8_11"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_8_11",
+        "NICE_NG222|table_1|9",
+        "NICE_NG222|table_2|4",
+        "NICE_NG222|ng222-1_8_5",
+        "NICE_NG222|ng222-1_4_17"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets at least every 6 months review for relapse prevention.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q015",
+      "query": "What should be discussed if depression has not responded after 4 weeks of antidepressant medication?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_9_1"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_9_1",
+        "NICE_NG222|table_1|9",
+        "NICE_NG222|table_2|4",
+        "NICE_NG222|ng222-1_8_11",
+        "NICE_NG222|ng222-1_9_5"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets further-line treatment after antidepressant non-response.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q016",
+      "query": "What treatment is considered for depression with a diagnosis of personality disorder?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_11_2"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_11_2",
+        "NICE_NG222|ng222-1_10_2",
+        "NICE_NG222|table_2|1",
+        "NICE_NG222|ng222-1_16_13",
+        "NICE_NG222|ng222-1_11_3"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets combined antidepressant medication and psychological treatment.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q017",
+      "query": "What specialist care is recommended for depression with psychotic symptoms?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_12_1"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_12_1",
+        "NICE_NG222|ng222-1_12_2",
+        "NICE_NG222|ng222-1_1_3",
+        "NICE_NG222|ng222-1_10_8",
+        "NICE_NG222|ng222-1_12_4"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets referral to specialist mental health services and coordinated multidisciplinary care.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q018",
+      "query": "What medication combination should be considered for depression with psychotic symptoms?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_12_2"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_12_2",
+        "NICE_NG222|ng222-1_9_9",
+        "NICE_NG222|ng222-1_10_2",
+        "NICE_NG222|ng222-1_12_3",
+        "NICE_NG222|ng222-1_12_5"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets combination treatment with antidepressant and antipsychotic medication.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q019",
+      "query": "What treatment is recommended if a person with psychotic depression does not want antipsychotic medication?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_12_3"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_12_2",
+        "NICE_NG222|ng222-1_12_3",
+        "NICE_NG222|ng222-1_12_5",
+        "NICE_NG222|ng222-1_9_9",
+        "NICE_NG222|ng222-1_12_1"
+      ],
+      "first_hit_rank": 2,
+      "reciprocal_rank": 0.5,
+      "notes": "Targets antidepressant treatment alone if antipsychotic medication is declined.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q020",
+      "query": "When should crisis resolution and home treatment be considered for more severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_16_10"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_16_10",
+        "NICE_NG222|ng222-1_16_9",
+        "NICE_NG222|table_1|11",
+        "NICE_NG222|ng222-1_5_1",
+        "NICE_NG222|table_2|7"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets CRHT for significant risk including suicide, self-harm, harm to others, or self-neglect.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q021",
+      "query": "What should crisis resolution and home treatment teams do when supporting people with depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_16_11"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_16_11",
+        "NICE_NG222|ng222-1_16_10",
+        "NICE_NG222|ng222-1_16_7",
+        "NICE_NG222|ng222-1_16_9",
+        "NICE_NG222|table_1|10"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets CRHT team responsibilities including risk monitoring and crisis planning.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q022",
+      "query": "When should inpatient treatment be considered for more severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_16_12"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|table_2|3",
+        "NICE_NG222|table_1|11",
+        "NICE_NG222|ng222-1_9_1",
+        "NICE_NG222|table_1|5",
+        "NICE_NG222|table_2|7"
+      ],
+      "first_hit_rank": null,
+      "reciprocal_rank": 0.0,
+      "notes": "Targets inpatient treatment when CRHT cannot adequately support the person.",
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": false
+    },
+    {
+      "query_id": "q023",
+      "query": "What psychological therapies should be available in secondary care settings for people with depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_16_13"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_16_13",
+        "NICE_NG222|table_1|10",
+        "NICE_NG222|table_1|5",
+        "NICE_NG222|table_1|3",
+        "NICE_NG222|ng222-1_10_2"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets availability of psychological therapies in secondary care settings.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q024",
+      "query": "How is guided self-help delivered for less severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|table_1|1"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|table_2|9",
+        "NICE_NG222|table_1|1",
+        "NICE_NG222|table_1|5",
+        "NICE_NG222|table_1|10",
+        "NICE_NG222|table_1|4"
+      ],
+      "first_hit_rank": 2,
+      "reciprocal_rank": 0.5,
+      "notes": "Targets the guided self-help row in Table 1.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q025",
+      "query": "How are SSRIs delivered for less severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|table_1|9"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_10_2",
+        "NICE_NG222|table_1|5",
+        "NICE_NG222|ng222-1_10_5",
+        "NICE_NG222|table_2|3",
+        "NICE_NG222|table_1|9"
+      ],
+      "first_hit_rank": 5,
+      "reciprocal_rank": 0.2,
+      "notes": "Targets the SSRI row in Table 1.",
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q026",
+      "query": "What are the key features of group exercise for less severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|table_1|6"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|table_1|6",
+        "NICE_NG222|table_2|10",
+        "NICE_NG222|table_1|3",
+        "NICE_NG222|table_1|5",
+        "NICE_NG222|table_2|3"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets the group exercise row in Table 1.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q027",
+      "query": "How many sessions are usually included in individual CBT for more severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|table_2|2"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|table_1|4",
+        "NICE_NG222|table_2|2",
+        "NICE_NG222|ng222-1_8_6",
+        "NICE_NG222|table_2|1",
+        "NICE_NG222|table_2|5"
+      ],
+      "first_hit_rank": 2,
+      "reciprocal_rank": 0.5,
+      "notes": "Targets the individual CBT row in Table 2.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q028",
+      "query": "How is antidepressant medication delivered for more severe depression?",
+      "expected_chunk_ids": [
+        "NICE_NG222|table_2|4"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_11_3",
+        "NICE_NG222|table_2|1",
+        "NICE_NG222|table_2|4",
+        "NICE_NG222|ng222-1_9_6",
+        "NICE_NG222|table_1|9"
+      ],
+      "first_hit_rank": 3,
+      "reciprocal_rank": 0.3333333333333333,
+      "notes": "Targets the antidepressant medication row in Table 2.",
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true
+    },
+    {
+      "query_id": "q029",
+      "query": "What should practitioners be aware of for people with chronic depressive symptoms?",
+      "expected_chunk_ids": [
+        "NICE_NG222|ng222-1_10_1"
+      ],
+      "top_chunk_ids": [
+        "NICE_NG222|ng222-1_10_1",
+        "NICE_NG222|table_1|5",
+        "NICE_NG222|table_1|4",
+        "NICE_NG222|table_1|10",
+        "NICE_NG222|table_2|6"
+      ],
+      "first_hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "notes": "Targets chronic depressive symptoms.",
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true
+    }
+  ]
+}
