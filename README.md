@@ -167,6 +167,73 @@ data/eval/results/hybrid_ng222_results.csv
 data/eval/results/hybrid_ng222_sweep.json
 ```
 
+## API Answer Generation
+
+The first LLM stage uses the best current retriever:
+
+```text
+Hybrid retrieval with alpha = 0.40
+```
+
+The OpenAI API key and model are read from environment variables. Do not write API keys into code, JSON files, reports, or git-tracked files.
+
+PowerShell setup for the current shell:
+
+```powershell
+$env:OPENAI_API_KEY="your_api_key_here"
+$env:OPENAI_MODEL="gpt-4.1-mini"
+```
+
+Dry-run without calling the API:
+
+```powershell
+conda run -n ml python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?" --dry-run
+```
+
+Generate an API-backed cited answer:
+
+```powershell
+conda run -n ml python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?"
+```
+
+The answer generator instructs the model to:
+
+- use only retrieved NICE guideline evidence
+- cite `chunk_id` for every substantive claim
+- avoid individualized medical advice
+- say when retrieved evidence is insufficient
+
+## Local Web UI
+
+Run the browser UI:
+
+```powershell
+conda run -n ml python scripts\ui_server.py --port 8765
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8765
+```
+
+The UI supports:
+
+- hybrid retrieval over NG222 chunks
+- API-backed cited answer generation
+- evidence inspection with chunk IDs and hybrid scores
+
+UI screenshot:
+
+![Clinical Guideline for Depression UI](images/UI.png)
+
+The UI still reads API credentials only from environment variables:
+
+```powershell
+$env:OPENAI_API_KEY="your_api_key_here"
+$env:OPENAI_MODEL="gpt-4.1-mini"
+```
+
 ## Main Findings
 
 BM25 is a strong first baseline for direct guideline questions when the query uses terms close to the guideline wording. It performs well on specific recommendation and table-row questions such as antidepressant review timing, psychotic depression treatment, CRHT, inpatient care, and table treatment details.

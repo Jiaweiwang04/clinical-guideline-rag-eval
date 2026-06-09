@@ -1,10 +1,20 @@
 import argparse
 import json
+import logging
+import os
 import sys
 from pathlib import Path
 
 
 DEFAULT_INDEX_DIR = "data/index/ng222_local_embeddings"
+
+os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+
+logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
+logging.getLogger("transformers").setLevel(logging.ERROR)
 
 
 def configure_stdout() -> None:
@@ -16,6 +26,7 @@ def load_dependencies():
     try:
         import numpy as np
         from sentence_transformers import SentenceTransformer
+        from transformers.utils import logging as transformers_logging
     except ModuleNotFoundError as exc:
         missing = exc.name
         raise SystemExit(
@@ -24,6 +35,7 @@ def load_dependencies():
             "  python -m pip install sentence-transformers"
         ) from exc
 
+    transformers_logging.set_verbosity_error()
     return np, SentenceTransformer
 
 
@@ -68,7 +80,7 @@ class LocalEmbeddingRetriever:
                 f"{self.embeddings.shape[0]} embedding vectors"
             )
 
-        self.model = SentenceTransformer(self.manifest["model_name"])
+        self.model = SentenceTransformer(self.manifest["model_name"], local_files_only=True)
 
     def search(self, query: str, top_k: int = 5) -> list[tuple[float, dict]]:
         query_embedding = self.model.encode(
