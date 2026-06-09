@@ -66,10 +66,14 @@ This evaluation has several limitations:
 - It uses a single guideline source, NICE NG222.
 - The query set is small, with 29 evaluation questions.
 - Gold labels were manually created.
-- The evaluation is retrieval-only.
-- No answer generation has been evaluated yet.
+- Quantitative evaluation uses retrieval metrics only.
+- API answer generation is included only as a qualitative demonstration.
+- Answer generation was not formally evaluated.
+- The system is not clinically validated.
 - The local embedding model is a general-purpose model, not a clinical-domain-specific embedding model.
 
-## Next Step
+## API Answer Demonstration
 
-The next stage should keep the hybrid retriever as the current retrieval baseline and evaluate answer generation with grounded citations. The same query set can be reused initially, but answer-level evaluation will need additional criteria such as citation correctness, faithfulness to the retrieved evidence, and safety around individualized medical advice.
+The project includes API-backed answer generation and a local browser UI as optional qualitative demonstrations. These components show how the selected hybrid retriever can pass evidence chunks to an API model and produce cited, evidence-grounded answers.
+
+These demonstrations are not production features and are not part of the quantitative evaluation. The reported metrics evaluate retrieval only.

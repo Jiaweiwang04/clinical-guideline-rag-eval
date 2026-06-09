@@ -1,5 +1,7 @@
 # Hybrid Retrieval Evaluation Report for NICE NG222
 
+> Note: This file documents an intermediate stage of the project. The final completed retrieval summary is in `reports/retrieval_experiment_summary.md`.
+
 ## Scope
 
 This report documents the first hybrid retrieval experiment for the NICE NG222 corpus.

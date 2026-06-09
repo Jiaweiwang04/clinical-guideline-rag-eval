@@ -1,27 +1,63 @@
 # Clinical Guideline RAG Evaluation
 
-This project is a small retrieval evaluation pipeline for clinical guideline RAG. The current working scope is limited to one source:
+This repository is a completed learning-oriented RAG experiment. It was built to learn and evaluate core retrieval-augmented generation components over a single clinical guideline source, not to create a production clinical assistant.
 
-- NICE NG222: Depression in adults: treatment and management
+The project uses NICE NG222, *Depression in adults: treatment and management*, as a compact test corpus for studying:
 
-The immediate goal is to build a reliable single-guideline retrieval baseline before adding embedding-based retrieval.
+- guideline chunking
+- lexical retrieval with BM25
+- local embedding retrieval
+- hybrid retrieval
+- retrieval evaluation with manually labelled gold chunks
+- evidence-grounded answer generation as a qualitative demo
 
-## Current Status
+## Final Status
 
-The project has completed the first BM25 evaluation stage for NICE NG222.
+The retrieval experiment is complete for the current scope.
 
-Completed pieces:
+Completed components:
 
 - Raw NG222 HTML and PDF snapshots are stored under `data/raw/ng222/`.
 - Recommendation chunks are generated from the NG222 recommendations HTML.
 - Table 1 and Table 2 treatment-option rows are generated from the same HTML snapshot.
 - A reproducible combined chunk file is available at `data/processed/ng222_chunks_with_tables.jsonl`.
-- A BM25 retriever is implemented in `scripts/search_bm25.py`.
-- A BM25 retrieval evaluation script is implemented in `scripts/eval_bm25.py`.
-- A v2 gold query set is stored at `data/eval/ng222_bm25_eval_questions.jsonl`.
-- Evaluation outputs are stored under `data/eval/results/`.
+- BM25, local embedding, and hybrid retrieval were implemented and compared.
+- All retrieval methods were evaluated on the same 29-query manually labelled evaluation set.
+- Retrieval reports and per-query comparison files are stored under `reports/` and `data/eval/results/`.
+- API-backed answer generation and a local browser UI are included as optional qualitative demonstrations.
 
-## Data Pipeline
+## Project Positioning
+
+This project is:
+
+- a learning project for understanding practical RAG pipelines
+- a small retrieval benchmark over one clinical guideline
+- a comparison of BM25, local embedding, and hybrid retrieval
+- a prototype for evidence-grounded answer generation using retrieved guideline chunks
+
+This project is not:
+
+- a production clinical assistant
+- a medical decision-support system
+- a clinically validated tool
+- a replacement for professional clinical judgement
+- a system for individualized medical advice
+
+The quantitative part of the project evaluates retrieval only. The LLM answer generation and UI are included to demonstrate how retrieved evidence can be passed to an API model, but the generated answers are not formally evaluated.
+
+## Corpus
+
+The current combined corpus is:
+
+```text
+data/processed/ng222_chunks_with_tables.jsonl
+```
+
+It contains:
+
+- 137 recommendation chunks
+- 21 table-row chunks
+- 158 chunks total
 
 Build recommendation-only chunks:
 
@@ -35,57 +71,55 @@ Build recommendation plus table chunks:
 python scripts\build_chunks_ng222_with_tables.py
 ```
 
-The combined output contains:
+## Evaluation Set
 
-- 137 recommendation chunks
-- 21 table-row chunks
-- 158 chunks total
-
-The current combined corpus is:
+The shared retrieval evaluation set is:
 
 ```text
-data/processed/ng222_chunks_with_tables.jsonl
+data/eval/ng222_bm25_eval_questions.jsonl
 ```
 
-## BM25 Evaluation
+It contains 29 manually labelled English queries. Each query includes expected NG222 chunk IDs. The same evaluation set is used for:
 
-Run the BM25 evaluation:
+- BM25 retrieval
+- local embedding retrieval
+- hybrid retrieval
+
+This shared setup makes the retrieval comparison directly comparable across methods.
+
+## Retrieval Results
+
+| Method | Recall@1 | Recall@3 | Recall@5 | MRR@5 |
+| --- | ---: | ---: | ---: | ---: |
+| BM25 | 0.690 | 0.793 | 0.931 | 0.768 |
+| Local embedding | 0.586 | 0.862 | 0.966 | 0.737 |
+| Hybrid | 0.759 | 1.000 | 1.000 | 0.874 |
+
+Main interpretation:
+
+- BM25 is strong for exact guideline wording and clinical terms.
+- Local embedding retrieval improves semantic recall but has weaker top-rank precision.
+- Hybrid retrieval gives the best overall result by combining lexical precision with semantic recall.
+
+The selected hybrid configuration is:
+
+```text
+alpha = 0.40
+candidate_k = 50
+```
+
+The hybrid score is:
+
+```text
+hybrid_score = alpha * normalized_bm25_score + (1 - alpha) * normalized_embedding_score
+```
+
+## Running Retrieval Experiments
+
+Run BM25 evaluation:
 
 ```powershell
 python scripts\eval_bm25.py
-```
-
-Default configuration:
-
-- chunks: `data/processed/ng222_chunks_with_tables.jsonl`
-- eval set: `data/eval/ng222_bm25_eval_questions.jsonl`
-- top_k: `5`
-- k1: `1.5`
-- b: `0.75`
-
-Current results:
-
-```text
-Queries: 29
-Recall@1: 0.690
-Recall@3: 0.793
-Recall@5: 0.931
-MRR@5: 0.768
-```
-
-Result files:
-
-```text
-data/eval/results/bm25_ng222_results.json
-data/eval/results/bm25_ng222_results.csv
-```
-
-## Local Embedding Evaluation
-
-The first local embedding baseline uses:
-
-```text
-sentence-transformers/all-MiniLM-L6-v2
 ```
 
 Build the local embedding index:
@@ -94,90 +128,47 @@ Build the local embedding index:
 conda run -n ml python scripts\build_embeddings_ng222.py
 ```
 
-Run embedding search:
-
-```powershell
-conda run -n ml python scripts\search_embedding.py --query "What withdrawal symptoms can happen when stopping antidepressants?" --top-k 5
-```
-
-Run embedding evaluation:
+Run local embedding evaluation:
 
 ```powershell
 conda run -n ml python scripts\eval_embedding.py
 ```
 
-Current local embedding results:
-
-```text
-Queries: 29
-Recall@1: 0.586
-Recall@3: 0.862
-Recall@5: 0.966
-MRR@5: 0.737
-```
-
-Result files:
-
-```text
-data/eval/results/embedding_ng222_results.json
-data/eval/results/embedding_ng222_results.csv
-```
-
-## Hybrid Evaluation
-
-The hybrid retriever combines BM25 and local embedding scores:
-
-```text
-hybrid_score = alpha * normalized_bm25_score + (1 - alpha) * normalized_embedding_score
-```
-
-Run hybrid search with the selected alpha:
-
-```powershell
-conda run -n ml python scripts\search_hybrid.py --alpha 0.4 --query "When should inpatient treatment be considered for more severe depression?" --top-k 5
-```
-
-Run the hybrid alpha sweep:
+Run hybrid alpha sweep:
 
 ```powershell
 conda run -n ml python scripts\eval_hybrid.py
 ```
 
-Current selected alpha:
+Compare per-query retriever behavior:
 
-```text
-alpha: 0.40
+```powershell
+python scripts\compare_retrievers.py
 ```
 
-Current hybrid results:
+Key result files:
 
 ```text
-Queries: 29
-Recall@1: 0.759
-Recall@3: 1.000
-Recall@5: 1.000
-MRR@5: 0.874
-```
-
-Result files:
-
-```text
+data/eval/results/bm25_ng222_results.json
+data/eval/results/embedding_ng222_results.json
 data/eval/results/hybrid_ng222_results.json
-data/eval/results/hybrid_ng222_results.csv
 data/eval/results/hybrid_ng222_sweep.json
+data/eval/results/per_query_comparison.csv
 ```
 
-## API Answer Generation
+## Optional API Answer Demo
 
-The first LLM stage uses the best current retriever:
+API-backed answer generation is included as a qualitative demonstration only. It is not part of the quantitative retrieval evaluation.
+
+The answer generator uses:
 
 ```text
 Hybrid retrieval with alpha = 0.40
 ```
 
-The OpenAI API key and model are read from environment variables. Do not write API keys into code, JSON files, reports, or git-tracked files.
+It retrieves top-k evidence chunks, builds an evidence block, and asks an API model to answer using only the retrieved evidence.
 
-PowerShell setup for the current shell:
+Set API credentials in the current PowerShell session:
 
 ```powershell
 $env:OPENAI_API_KEY="your_api_key_here"
@@ -190,22 +181,24 @@ Dry-run without calling the API:
 conda run -n ml python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?" --dry-run
 ```
 
-Generate an API-backed cited answer:
+Generate a cited answer:
 
 ```powershell
 conda run -n ml python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?"
 ```
 
-The answer generator instructs the model to:
+The prompt instructs the model to:
 
 - use only retrieved NICE guideline evidence
 - cite `chunk_id` for every substantive claim
 - avoid individualized medical advice
-- say when retrieved evidence is insufficient
+- state when retrieved evidence is insufficient
 
-## Local Web UI
+## Optional Local Web UI
 
-Run the browser UI:
+The local browser UI is also a qualitative demonstration. It is intended for inspecting retrieval and trying cited answer generation interactively.
+
+Run the UI:
 
 ```powershell
 conda run -n ml python scripts\ui_server.py --port 8765
@@ -220,60 +213,37 @@ http://127.0.0.1:8765
 The UI supports:
 
 - hybrid retrieval over NG222 chunks
-- API-backed cited answer generation
+- optional API-backed cited answer generation
 - evidence inspection with chunk IDs and hybrid scores
 
 UI screenshot:
 
 ![Clinical Guideline for Depression UI](images/UI.png)
 
-The UI still reads API credentials only from environment variables:
-
-```powershell
-$env:OPENAI_API_KEY="your_api_key_here"
-$env:OPENAI_MODEL="gpt-4.1-mini"
-```
-
-## Main Findings
-
-BM25 is a strong first baseline for direct guideline questions when the query uses terms close to the guideline wording. It performs well on specific recommendation and table-row questions such as antidepressant review timing, psychotic depression treatment, CRHT, inpatient care, and table treatment details.
-
-The current misses show the limits of plain lexical retrieval:
-
-- `q007`: withdrawal symptom listing. BM25 retrieves related withdrawal duration and monitoring chunks but misses the exact symptom-list chunk.
-- `q014`: relapse prevention review frequency. BM25 retrieves antidepressant review and relapse-related chunks but misses the precise 6-month review recommendation.
-
-These failures are useful test cases for the next embedding or hybrid retrieval stage.
-
-The local embedding baseline improves `Recall@5` and fixes the BM25 miss for withdrawal symptom listing, but it has weaker `Recall@1` and `MRR@5`. This suggests that embeddings are useful for semantic recall, while BM25 remains stronger for exact top-rank precision on this small corpus.
-
-The hybrid retriever is currently the best method. With `alpha=0.40`, it improves over both standalone BM25 and standalone local embeddings:
-
-| Method | Recall@1 | Recall@3 | Recall@5 | MRR@5 |
-| --- | ---: | ---: | ---: | ---: |
-| BM25 | 0.690 | 0.793 | 0.931 | 0.768 |
-| Local embedding | 0.586 | 0.862 | 0.966 | 0.737 |
-| Hybrid | 0.759 | 1.000 | 1.000 | 0.874 |
+The UI reads API credentials only from environment variables. Do not write API keys into code, JSON files, reports, or git-tracked files.
 
 ## Reports
 
-The current BM25 stage report is:
+Detailed reports are available under `reports/`:
 
 ```text
 reports/bm25_eval_report.md
-```
-
-The current local embedding stage report is:
-
-```text
 reports/local_embedding_eval_report.md
-```
-
-The current hybrid stage report is:
-
-```text
 reports/hybrid_eval_report.md
+reports/retrieval_experiment_summary.md
 ```
+
+## Limitations
+
+This project has important limitations:
+
+- It uses a single guideline source, NICE NG222.
+- The evaluation set is small, with 29 queries.
+- Gold chunks were manually labelled.
+- Quantitative evaluation uses retrieval metrics only.
+- Answer generation was not formally evaluated.
+- The system is not clinically validated.
+- The local embedding model is a general-purpose model, not a clinical-domain-specific embedding model.
 
 ## Safety Note
 

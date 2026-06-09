@@ -1,5 +1,7 @@
 # BM25 Evaluation Report for NICE NG222
 
+> Note: This file documents an intermediate stage of the project. The final completed retrieval summary is in `reports/retrieval_experiment_summary.md`.
+
 ## Scope
 
 This report documents the first retrieval baseline for the project. The evaluation is limited to one guideline source:
