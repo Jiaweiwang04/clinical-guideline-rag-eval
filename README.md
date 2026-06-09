@@ -1,6 +1,6 @@
 # Clinical Guideline RAG Evaluation
 
-This repository is a completed learning-oriented RAG experiment. It was built to learn and evaluate core retrieval-augmented generation components over a single clinical guideline source, not to create a production clinical assistant.
+This repository is a completed learning-oriented RAG experiment. It was built to learn, implement, and evaluate core retrieval-augmented generation components over a single clinical guideline source, not to create a production clinical assistant.
 
 The project uses NICE NG222, *Depression in adults: treatment and management*, as a compact test corpus for studying:
 
@@ -13,18 +13,18 @@ The project uses NICE NG222, *Depression in adults: treatment and management*, a
 
 ## Final Status
 
-The retrieval experiment is complete for the current scope.
+The project is complete for the learning and evaluation scope described here.
 
 Completed components:
 
-- Raw NG222 HTML and PDF snapshots are stored under `data/raw/ng222/`.
-- Recommendation chunks are generated from the NG222 recommendations HTML.
-- Table 1 and Table 2 treatment-option rows are generated from the same HTML snapshot.
-- A reproducible combined chunk file is available at `data/processed/ng222_chunks_with_tables.jsonl`.
-- BM25, local embedding, and hybrid retrieval were implemented and compared.
-- All retrieval methods were evaluated on the same 29-query manually labelled evaluation set.
-- Retrieval reports and per-query comparison files are stored under `reports/` and `data/eval/results/`.
-- API-backed answer generation and a local browser UI are included as optional qualitative demonstrations.
+- NICE NG222 chunking from the guideline recommendations HTML.
+- A reproducible 158-chunk corpus at `data/processed/ng222_chunks_with_tables.jsonl`.
+- BM25 lexical retrieval.
+- Local embedding retrieval with `sentence-transformers/all-MiniLM-L6-v2`.
+- Hybrid retrieval combining normalized BM25 and embedding scores.
+- Recall@k and MRR evaluation over the same 29-query manually labelled evaluation set.
+- API-backed cited answer generation as a qualitative demonstration.
+- A lightweight local UI for evidence inspection and qualitative answer demos.
 
 ## Project Positioning
 
@@ -47,7 +47,7 @@ The quantitative part of the project evaluates retrieval only. The LLM answer ge
 
 ## Corpus
 
-The current combined corpus is:
+The combined corpus is:
 
 ```text
 data/processed/ng222_chunks_with_tables.jsonl
@@ -114,7 +114,7 @@ The hybrid score is:
 hybrid_score = alpha * normalized_bm25_score + (1 - alpha) * normalized_embedding_score
 ```
 
-## Running Retrieval Experiments
+## Reproducing Retrieval Experiments
 
 Run BM25 evaluation:
 
@@ -231,6 +231,7 @@ reports/bm25_eval_report.md
 reports/local_embedding_eval_report.md
 reports/hybrid_eval_report.md
 reports/retrieval_experiment_summary.md
+reports/project_reflection.md
 ```
 
 ## Limitations

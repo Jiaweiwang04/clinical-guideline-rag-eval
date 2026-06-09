@@ -4,11 +4,11 @@
 
 ## Scope
 
-This report documents the first retrieval baseline for the project. The evaluation is limited to one guideline source:
+This report documents the BM25 lexical retrieval baseline for the project. The evaluation is limited to one guideline source:
 
 - NICE NG222: Depression in adults: treatment and management
 
-The purpose of this stage is to establish a reproducible lexical retrieval baseline before starting embedding-based retrieval.
+The purpose of this report is to document the reproducible lexical baseline used in the completed retrieval comparison.
 
 ## Corpus Preparation
 
@@ -154,7 +154,7 @@ Observed top results retrieve antidepressant review and relapse-related chunks b
 
 ## Baseline Conclusion
 
-The BM25 evaluation stage is complete enough to act as the lexical baseline for the next retrieval stage.
+The BM25 evaluation acts as the lexical baseline for the completed retrieval comparison.
 
 The current baseline is:
 
@@ -164,16 +164,14 @@ Recall@5 = 0.931
 MRR@5 = 0.768
 ```
 
-This should be used as the comparison point for embedding retrieval and hybrid retrieval.
+This result is the comparison point for local embedding retrieval and hybrid retrieval.
 
-## Next Stage
+## Role in Final Project
 
-The next stage should introduce embedding-based retrieval while keeping this BM25 setup unchanged as a baseline.
+In the final project, BM25 is one of three compared retrieval methods:
 
-Recommended next comparisons:
-
-- BM25 only
-- embedding retrieval only
+- BM25 lexical retrieval
+- local embedding retrieval
 - hybrid retrieval with BM25 plus embeddings
 
-The same v2 gold set should be reused first. New queries can be added after the embedding pipeline is stable.
+All three methods are evaluated on the same 29-query manually labelled gold set. The final retrieval summary is in `reports/retrieval_experiment_summary.md`.
