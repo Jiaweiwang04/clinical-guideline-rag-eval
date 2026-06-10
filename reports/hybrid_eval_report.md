@@ -41,13 +41,13 @@ candidate_k: 50
 Run a single hybrid search:
 
 ```powershell
-conda run -n ml python scripts\search_hybrid.py --alpha 0.4 --query "When should inpatient treatment be considered for more severe depression?" --top-k 5
+python scripts\search_hybrid.py --alpha 0.4 --query "When should inpatient treatment be considered for more severe depression?" --top-k 5
 ```
 
 Run the hybrid evaluation and alpha sweep:
 
 ```powershell
-conda run -n ml python scripts\eval_hybrid.py
+python scripts\eval_hybrid.py
 ```
 
 ## Alpha Sweep

@@ -1,6 +1,6 @@
 # Clinical Guideline RAG Evaluation
 
-This repository is a completed learning-oriented RAG experiment. It was built to learn, implement, and evaluate core retrieval-augmented generation components over a single clinical guideline source, not to create a production clinical assistant.
+This repository is a completed learning-oriented RAG experiment. It was built to learn, implement, and evaluate core retrieval-augmented generation components over a single clinical guideline source.
 
 The project uses NICE NG222, *Depression in adults: treatment and management*, as a compact test corpus for studying:
 
@@ -125,19 +125,19 @@ python scripts\eval_bm25.py
 Build the local embedding index:
 
 ```powershell
-conda run -n ml python scripts\build_embeddings_ng222.py
+python scripts\build_embeddings_ng222.py
 ```
 
 Run local embedding evaluation:
 
 ```powershell
-conda run -n ml python scripts\eval_embedding.py
+python scripts\eval_embedding.py
 ```
 
 Run hybrid alpha sweep:
 
 ```powershell
-conda run -n ml python scripts\eval_hybrid.py
+python scripts\eval_hybrid.py
 ```
 
 Compare per-query retriever behavior:
@@ -178,13 +178,13 @@ $env:OPENAI_MODEL="gpt-4.1-mini"
 Dry-run without calling the API:
 
 ```powershell
-conda run -n ml python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?" --dry-run
+python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?" --dry-run
 ```
 
 Generate a cited answer:
 
 ```powershell
-conda run -n ml python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?"
+python scripts\generate_answer.py --query "How should antidepressant medication be tapered when stopping?"
 ```
 
 The prompt instructs the model to:
@@ -201,7 +201,7 @@ The local browser UI is also a qualitative demonstration. It is intended for ins
 Run the UI:
 
 ```powershell
-conda run -n ml python scripts\ui_server.py --port 8765
+python scripts\ui_server.py --port 8765
 ```
 
 Then open:

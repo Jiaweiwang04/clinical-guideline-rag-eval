@@ -53,19 +53,19 @@ The embedding index covers the same 158 chunks as BM25:
 Build the index:
 
 ```powershell
-conda run -n ml python scripts\build_embeddings_ng222.py
+python scripts\build_embeddings_ng222.py
 ```
 
 Run a single search:
 
 ```powershell
-conda run -n ml python scripts\search_embedding.py --query "What withdrawal symptoms can happen when stopping antidepressants?" --top-k 5
+python scripts\search_embedding.py --query "What withdrawal symptoms can happen when stopping antidepressants?" --top-k 5
 ```
 
 Run the evaluation:
 
 ```powershell
-conda run -n ml python scripts\eval_embedding.py
+python scripts\eval_embedding.py
 ```
 
 ## Results
